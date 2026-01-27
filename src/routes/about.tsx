@@ -12,3 +12,4 @@ function AboutComponent() {
     </div>
   )
 }
+// initial about page 
