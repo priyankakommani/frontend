@@ -53,17 +53,7 @@ const projects = [
     },
 ];
 
-const categoryColors = {
-    Backend: "bg-slate-100 text-slate-700",
-    Database: "bg-stone-100 text-stone-700",
-    Frontend: "bg-zinc-100 text-zinc-700",
-    Integrations: "bg-neutral-100 text-neutral-700",
-    Languages: "bg-gray-100 text-gray-700",
-    Tools: "bg-slate-100 text-slate-600",
-};
-
 export default function Portfolio() {
-    const [activeSection, setActiveSection] = useState("about");
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
@@ -88,7 +78,6 @@ export default function Portfolio() {
         .delay-2 { animation-delay: 0.2s; }
         .delay-3 { animation-delay: 0.3s; }
         .delay-4 { animation-delay: 0.4s; }
-        .delay-5 { animation-delay: 0.5s; }
         .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .card-hover:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
         .nav-link { transition: color 0.2s; cursor: pointer; }
@@ -127,12 +116,14 @@ export default function Portfolio() {
                         1+ year of production experience · Node.js · PostgreSQL · AI Integrations
                     </p>
                     <div className="flex gap-4 delay-4 fade-in">
-                        <a href="mailto:priyankakommani@gmail.com"
+                        {/* Scrolls to contact section on click */}
+                        <span
+                            onClick={() => scrollTo("contact")}
                             className="gold-bg text-[#0f0f0f] px-6 py-3 text-sm dm-sans font-medium tracking-wide hover:opacity-90 transition"
-                            style={{ borderRadius: '2px' }}>
+                            style={{ borderRadius: '2px', cursor: 'pointer' }}>
                             Get In Touch
-                        </a>
-                        <a href="https://github.com/priyankakommani" target="_blank" rel="noreferrer"
+                        </span>
+                        <a href="https://github.com/priyanka-kommani" target="_blank" rel="noreferrer"
                             className="border gold-border gold px-6 py-3 text-sm dm-sans font-medium tracking-wide hover:bg-[#c9a96e15] transition"
                             style={{ borderRadius: '2px' }}>
                             GitHub →
@@ -142,7 +133,7 @@ export default function Portfolio() {
 
                 <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
                     <span className="dm-sans text-xs tracking-widest uppercase text-[#888]">scroll</span>
-                    <div className="w-px h-10 bg-[#c9a96e]" style={{ animation: 'fadeUp 1.5s ease infinite alternate' }}></div>
+                    <div className="w-px h-10 bg-[#c9a96e]"></div>
                 </div>
             </section>
 
@@ -180,7 +171,7 @@ export default function Portfolio() {
                         <div className="flex flex-wrap gap-2">
                             {skills.map((skill) => (
                                 <span key={skill.name}
-                                    className={`skill-chip dm-sans text-xs px-3 py-1.5 rounded-sm border border-[#ffffff0f] text-[#aaa] bg-[#ffffff05] cursor-default`}>
+                                    className="skill-chip dm-sans text-xs px-3 py-1.5 rounded-sm border border-[#ffffff0f] text-[#aaa] bg-[#ffffff05] cursor-default">
                                     {skill.name}
                                 </span>
                             ))}
@@ -284,7 +275,7 @@ export default function Portfolio() {
                         style={{ borderRadius: '2px' }}>
                         priyankakommani@gmail.com
                     </a>
-                    <a href="https://github.com/priyankakommani" target="_blank" rel="noreferrer"
+                    <a href="https://github.com/priyanka-kommani" target="_blank" rel="noreferrer"
                         className="border gold-border gold px-8 py-3.5 text-sm dm-sans font-medium hover:bg-[#c9a96e10] transition"
                         style={{ borderRadius: '2px' }}>
                         GitHub
