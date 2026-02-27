@@ -1,16 +1,18 @@
-// import { useState, useEffect } from "react";
-
 import { useEffect, useState } from "react";
 
 const skills = [
     { name: "Node.js", category: "Backend" },
     { name: "Hono.js", category: "Backend" },
+    { name: "Express", category: "Backend" },
     { name: "REST APIs", category: "Backend" },
     { name: "Django", category: "Backend" },
     { name: "PostgreSQL", category: "Database" },
     { name: "Drizzle ORM", category: "Database" },
     { name: "React.js", category: "Frontend" },
     { name: "Tailwind CSS", category: "Frontend" },
+    { name: "WebRTC", category: "Integrations" },
+    { name: "LiveKit", category: "Integrations" },
+    { name: "AWS S3", category: "Integrations" },
     { name: "VideoSDK", category: "Integrations" },
     { name: "QStash", category: "Integrations" },
     { name: "Deepgram", category: "Integrations" },
@@ -21,6 +23,12 @@ const skills = [
 ];
 
 const projects = [
+    {
+        title: "Real-Time AI Interview Platform",
+        desc: "Full-stack AI-powered interview platform enabling real-time, bidirectional voice interviews via WebRTC and Google Gemini 2.5 Flash Native Audio API. Integrated LiveKit Agents SDK for low-latency (<500ms) AI voice orchestration, built an in-memory transcription pipeline publishing structured JSON to AWS S3, and configured LiveKit Egress for cloud MP4 recording. Features a responsive React + Tailwind frontend with live agent state feedback (listening, speaking, processing).",
+        stack: ["Node.js", "Express", "React.js", "WebRTC", "LiveKit", "Gemini AI", "AWS S3", "Tailwind CSS"],
+        tag: "AI · WebRTC · Full Stack",
+    },
     {
         title: "Interview Management & Proctoring Platform",
         desc: "End-to-end interview scheduling system with VideoSDK-based live proctoring, Deepgram speech-to-text transcription, Gemini AI candidate scoring, and QStash-managed async job queues.",
@@ -89,6 +97,7 @@ export default function Portfolio() {
         .tag-pill { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
         .skill-chip { transition: background 0.15s, color 0.15s; }
         .skill-chip:hover { background: #c9a96e22 !important; color: #c9a96e !important; }
+        .featured-badge { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
       `}</style>
 
             {/* NAV */}
@@ -116,14 +125,13 @@ export default function Portfolio() {
                         1+ year of production experience · Node.js · PostgreSQL · AI Integrations
                     </p>
                     <div className="flex gap-4 delay-4 fade-in">
-                        {/* Scrolls to contact section on click */}
                         <span
                             onClick={() => scrollTo("contact")}
                             className="gold-bg text-[#0f0f0f] px-6 py-3 text-sm dm-sans font-medium tracking-wide hover:opacity-90 transition"
                             style={{ borderRadius: '2px', cursor: 'pointer' }}>
                             Get In Touch
                         </span>
-                        <a href="https://github.com/priyanka-kommani" target="_blank" rel="noreferrer"
+                        <a href="https://github.com/priyankakommani" target="_blank" rel="noreferrer"
                             className="border gold-border gold px-6 py-3 text-sm dm-sans font-medium tracking-wide hover:bg-[#c9a96e15] transition"
                             style={{ borderRadius: '2px' }}>
                             GitHub →
@@ -152,8 +160,8 @@ export default function Portfolio() {
                         </p>
                         <p className="dm-sans text-[#aaa] leading-relaxed mb-8">
                             I specialize in building reliable, high-performance server-side applications and have
-                            hands-on experience with AI-powered platforms, real-time video systems, and IoT backends.
-                            I also have basic frontend exposure with React.js and Tailwind CSS.
+                            hands-on experience with AI-powered platforms, real-time WebRTC systems, and IoT backends.
+                            I also have frontend exposure with React.js and Tailwind CSS.
                         </p>
                         <div className="grid grid-cols-3 gap-4 pt-4 border-t border-[#ffffff0f]">
                             {[["B.Tech CSE", "IIIT Srikakulam", "CGPA 9.0"], ["Experience", "1+ Years", "Production"], ["Location", "Eluru, AP", "India"]].map(([title, val, sub]) => (
@@ -241,10 +249,15 @@ export default function Portfolio() {
                 <div className="grid md:grid-cols-2 gap-6">
                     {projects.map((project, i) => (
                         <div key={i}
-                            className={`card-hover bg-[#161616] border border-[#ffffff08] p-7 ${i === 0 ? "md:col-span-2" : ""}`}
+                            className={`card-hover bg-[#161616] border p-7 ${i === 0 ? "md:col-span-2 border-[#c9a96e22]" : "border-[#ffffff08]"}`}
                             style={{ borderRadius: '4px' }}>
                             <div className="flex justify-between items-start mb-4">
                                 <span className="tag-pill dm-sans text-[#555] tracking-widest">{project.tag}</span>
+                                {i === 0 && (
+                                    <span className="featured-badge dm-sans px-2.5 py-1 border border-[#c9a96e33] gold" style={{ borderRadius: '2px' }}>
+                                        Featured
+                                    </span>
+                                )}
                             </div>
                             <h3 className="playfair text-xl font-semibold mb-3">{project.title}</h3>
                             <p className="dm-sans text-sm text-[#777] leading-relaxed mb-5">{project.desc}</p>
@@ -275,7 +288,7 @@ export default function Portfolio() {
                         style={{ borderRadius: '2px' }}>
                         priyankakommani@gmail.com
                     </a>
-                    <a href="https://github.com/priyanka-kommani" target="_blank" rel="noreferrer"
+                    <a href="https://github.com/priyankakommani" target="_blank" rel="noreferrer"
                         className="border gold-border gold px-8 py-3.5 text-sm dm-sans font-medium hover:bg-[#c9a96e10] transition"
                         style={{ borderRadius: '2px' }}>
                         GitHub
