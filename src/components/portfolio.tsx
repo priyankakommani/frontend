@@ -154,8 +154,8 @@ export default function Portfolio() {
                         <p className="dm-sans text-xs tracking-[0.2em] uppercase gold mb-4">About</p>
                         <h2 className="playfair text-4xl font-semibold mb-8 leading-tight">Crafting backends<br />that scale.</h2>
                         <p className="dm-sans text-[#aaa] leading-relaxed mb-6">
-                            Backend Developer with 6 months of internship and 10 months of professional experience
-                            at ActAnos, designing APIs, architecting databases, and integrating complex third-party
+                            Backend Developer with 1.5 years of professional experience
+                            at Orotron, designing APIs, architecting databases, and integrating complex third-party
                             services into production systems.
                         </p>
                         <p className="dm-sans text-[#aaa] leading-relaxed mb-8">
@@ -198,8 +198,8 @@ export default function Portfolio() {
                 <div className="relative pl-6 border-l border-[#ffffff0f]">
                     {[
                         {
-                            role: "Backend Developer",
-                            company: "ActAnos",
+                            role: "Backend Developer ",
+                            company: "Orotron",
                             period: "2024 – Present",
                             points: [
                                 "Designed and maintained scalable backend systems using Node.js and Hono.js for core product features.",
@@ -207,15 +207,6 @@ export default function Portfolio() {
                                 "Delivered reliable REST APIs in collaboration with frontend and product teams, contributing to faster feature releases.",
                             ]
                         },
-                        {
-                            role: "Backend Developer Intern",
-                            company: "ActAnos",
-                            period: "2024",
-                            points: [
-                                "Managed PostgreSQL databases and implemented ORM-based data models with Drizzle ORM.",
-                                "Contributed to production backend workflows, strengthening knowledge of real-world system design.",
-                            ]
-                        }
                     ].map((exp, i) => (
                         <div key={i} className="mb-12 relative">
                             <div className="absolute -left-[29px] top-1.5 w-3 h-3 rounded-full gold-bg border-2 border-[#0f0f0f]"></div>
