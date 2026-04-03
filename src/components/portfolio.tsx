@@ -20,6 +20,12 @@ const skills = [
     { name: "Python", category: "Languages" },
     { name: "JavaScript", category: "Languages" },
     { name: "Git", category: "Tools" },
+    { name: "NestJS", category: "Backend" },
+    { name: "GraphQL", category: "Backend" },
+    { name: "Prisma", category: "Database" },
+    { name: "Next.js", category: "Frontend" },
+    { name: "Zod", category: "Tools" },
+    { name: "JWT", category: "Tools" },
 ];
 
 const projects = [
@@ -34,6 +40,18 @@ const projects = [
         desc: "End-to-end interview scheduling system with VideoSDK-based live proctoring, Deepgram speech-to-text transcription, Gemini AI candidate scoring, and QStash-managed async job queues.",
         stack: ["Node.js", "Hono.js", "PostgreSQL", "VideoSDK", "Deepgram", "Gemini AI", "QStash"],
         tag: "AI · Backend",
+    },
+    {
+        title: "PlateSync - Food Ordering Application",
+        desc: "Full-stack food ordering monorepo with complete Role-Based Access Control (RBAC) across all 5 core functions — view restaurants, create orders, checkout, cancel orders, and manage payment methods. Implemented bonus Re-BAC with country-scoped access restricting Managers and Members to their region while Admin retains global visibility. Features a GraphQL API built with NestJS code-first schema generation, and a responsive Next.js 14 frontend with role-aware UI.",
+        stack: ["NestJS", "GraphQL", "Prisma", "Next.js", "Apollo Client", "Tailwind CSS", "JWT"],
+        tag: "Full Stack · RBAC",
+    },
+    {
+        title: "SessionSync - Mentorship Platform",
+        desc: "Full-stack mentorship platform with a Node.js/Express REST API and React + Vite frontend. Features JWT-based authentication, role-based access control for PARENT and MENTOR roles, lesson and session management, booking system, and Google Gemini AI-powered LLM text summarization. Includes Zod validation, in-memory rate limiting on the LLM endpoint (10 req/min), and a fully relational PostgreSQL schema via Drizzle ORM.",
+        stack: ["Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Gemini AI", "React.js", "Zod", "JWT"],
+        tag: "Full Stack · AI",
     },
     {
         title: "IoT Motor Monitoring & Control System",
