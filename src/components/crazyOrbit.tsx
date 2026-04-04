@@ -130,13 +130,7 @@ export function AboutPage() {
                 {/* Right Side */}
                 <div className="relative flex justify-center md:justify-end mx-auto w-33 h-60 sm:w-33 sm:h-60 md:w-33 md:h-60 rounded-full bg-gradient-to-b from-purple-600 to-black">
                     <div className="absolute top-4 left-1/2 -translate-x-1/2 w-25 h-25 sm:w-25 sm:h-25 bg-white rounded-full shadow-xl" />
-                    <div className="absolute -top-14 sm:-top-14 left-1/2 -translate-x-1/3 w-50 h-100 sm:w-50 sm:h-100 md:w-50 md:h-100">
-                        <img
-                            src="/assets/hand-pointer.png"
-                            alt="3D Hand Pointer"
-                            className="w-full h-full object-contain"
-                        />
-                    </div>
+                    {/* hand symbol removed */}
                 </div>
             </section>
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center py-12 mx-auto w-[90%] gap-8">
@@ -381,7 +375,7 @@ export function AboutPage() {
                     >
                         <div className="relative mb-4">
                             <img
-                                src="/assets/Circle-1.webp"
+                                src="/assets/circle-1.webp"
                                 alt="Reason 3"
                                 className="relative z-10 mx-auto w-32 h-32 md:w-46 md:h-46 rounded-md"
                             />
