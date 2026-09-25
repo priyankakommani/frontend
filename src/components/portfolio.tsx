@@ -384,6 +384,14 @@ const projects = [
         note: "Full-stack AI engineering engagement",
     },
     {
+        title: "Settle — Travel Expense Reimbursement",
+        desc: "Turns an employee's post-trip inbox into a policy-checked expense claim, then tracks it through approval and payment. A hand-rolled MIME parser and confidence-scored classifier ingest raw .eml files and receipt images (Tesseract OCR), deduplicate resends and forwards, and drop promo noise. Pure domain modules then take over: a config-driven policy engine gives each line an allowed / capped / disallowed / needs-info verdict, a settlement calculator nets the result against advances, value-band approval routing walks the reporting chain, and a strict state machine drives the claim from Draft to Paid. Includes JWT + scrypt auth, role-scoped analytics, in-app notifications and a full audit log.",
+        stack: ["TypeScript", "Hono", "PostgreSQL", "Drizzle ORM", "React 18", "TanStack Query", "Tesseract.js", "Zod"],
+        tag: "Full Stack · Workflow Automation",
+        live: "https://settle-six-mu.vercel.app/",
+        github: "https://github.com/priyankakommani/settle",
+    },
+    {
         title: "Real-Time AI Interview Platform",
         desc: "Full-stack AI interview platform enabling real-time, bidirectional voice interviews via WebRTC and Gemini 2.5 Flash Native Audio. Integrated LiveKit Agents SDK for sub-500ms AI voice orchestration, built an in-memory transcription pipeline publishing structured JSON to AWS S3, and configured LiveKit Egress for cloud MP4 recording. Responsive React + Tailwind frontend with live agent-state feedback.",
         stack: ["Node.js", "Express", "React.js", "WebRTC", "LiveKit", "Gemini", "AWS S3"],
@@ -642,11 +650,21 @@ export default function Portfolio() {
                                     </span>
                                 ))}
                             </div>
-                            {project.github && (
-                                <a href={project.github} target="_blank" rel="noreferrer"
-                                    className="dm-sans text-xs gold inline-block mt-4 hover:opacity-80 transition">
-                                    View on GitHub →
-                                </a>
+                            {(project.live || project.github) && (
+                                <div className="flex gap-5 mt-4">
+                                    {project.live && (
+                                        <a href={project.live} target="_blank" rel="noreferrer"
+                                            className="dm-sans text-xs gold inline-block hover:opacity-80 transition">
+                                            Live Demo →
+                                        </a>
+                                    )}
+                                    {project.github && (
+                                        <a href={project.github} target="_blank" rel="noreferrer"
+                                            className="dm-sans text-xs gold inline-block hover:opacity-80 transition">
+                                            View on GitHub →
+                                        </a>
+                                    )}
+                                </div>
                             )}
                         </div>
                     ))}
