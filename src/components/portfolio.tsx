@@ -360,10 +360,10 @@ const skills = [
 ];
 
 const stats = [
-    { value: "1.5 yrs", label: "Sole backend ownership" },
-    { value: "55+", label: "Routes shipped on Aigrad" },
+    { value: "1.5+ yrs", label: "Production experience, end to end" },
+    { value: "7", label: "Broker APIs integrated (Growsin)" },
+    { value: "9", label: "Google Play releases shipped" },
     { value: "<500ms", label: "Real-time AI response latency" },
-    { value: "37k", label: "Lines of production code (Aigrad)" },
 ];
 
 const projects = [
@@ -489,16 +489,16 @@ export default function Portfolio() {
             <section className="min-h-screen flex flex-col justify-center max-w-6xl mx-auto px-6 pt-24 relative">
                 <div className={`${visible ? "fade-in" : "opacity-0"}`}>
                     <p className="dm-sans text-sm tracking-[0.2em] uppercase gold mb-6 delay-1 fade-in">
-                        Software Engineer · Backend &amp; AI Systems
+                        Software Engineer · Full Stack, Backend &amp; AI
                     </p>
                     <h1 className="playfair text-7xl font-bold leading-none mb-6 delay-2 fade-in" style={{ letterSpacing: '-0.02em' }}>
                         Priyanka<br />
                         <span style={{ WebkitTextStroke: '1px #c9a96e', color: 'transparent' }}>Kommani</span>
                     </h1>
                     <p className="dm-sans text-lg text-[#888] max-w-xl leading-relaxed mb-10 delay-3 fade-in">
-                        I build production backends, and the AI systems layered on top of them —
-                        RAG pipelines, real-time voice AI, and full-stack platforms, shipped solo, end to end.<br />
-                        1.5 years · Node.js · PostgreSQL · LLM Integrations
+                        I build production software end to end — fintech apps with live broker trading and
+                        UPI Autopay, real-time voice AI, RAG pipelines, and full-stack platforms.<br />
+                        1.5+ years · Node.js · TypeScript · PostgreSQL · LLM Integrations
                     </p>
                     <div className="flex gap-4 mb-16 delay-4 fade-in">
                         <span
@@ -539,10 +539,11 @@ export default function Portfolio() {
                         <p className="dm-sans text-xs tracking-[0.2em] uppercase gold mb-4">About</p>
                         <h2 className="playfair text-4xl font-semibold mb-8 leading-tight">Backends that scale.<br />AI that ships.</h2>
                         <p className="dm-sans text-[#aaa] leading-relaxed mb-6">
-                            Software Engineer with 1.5 years as the sole backend owner at an early-stage startup —
-                            designing PostgreSQL schemas, shipping production REST APIs in Node.js and Hono.js, and
-                            integrating real-time AI infrastructure (LiveKit, Deepgram, Gemini) into live systems used
-                            by real users.
+                            Software Engineer with 1.5+ years shipping production systems. At Growsin, a fintech
+                            startup, I build a live investment-research app on Google Play — in-app stock ordering
+                            through broker APIs (Zerodha, Upstox), Zoho Payments with UPI Autopay, and KYC onboarding.
+                            Before that I was the sole backend owner at Orotron, shipping REST APIs in Node.js and
+                            Hono.js and real-time AI infrastructure (LiveKit, Deepgram, Gemini) used by real users.
                         </p>
                         <p className="dm-sans text-[#aaa] leading-relaxed mb-8">
                             Alongside that, I've taken on full-stack AI engineering work end to end: a RAG-powered
@@ -551,7 +552,7 @@ export default function Portfolio() {
                             about AI features that ship as reliable, deployed products — not demos.
                         </p>
                         <div className="grid grid-cols-3 gap-4 pt-4 border-t border-[#ffffff0f]">
-                            {[["B.Tech CSE", "IIIT Srikakulam", "CGPA 9.0"], ["Experience", "1.5 Years", "Production"], ["Location", "Eluru, AP", "India"]].map(([title, val, sub]) => (
+                            {[["B.Tech CSE", "IIIT Srikakulam", "CGPA 9.0"], ["Experience", "1.5+ Years", "Production"], ["Location", "Visakhapatnam, AP", "India"]].map(([title, val, sub]) => (
                                 <div key={title}>
                                     <p className="dm-sans text-xs text-[#555] uppercase tracking-widest mb-1">{title}</p>
                                     <p className="dm-sans text-sm font-medium text-[#e8e4dc]">{val}</p>
@@ -584,6 +585,17 @@ export default function Portfolio() {
 
                 <div className="relative pl-6 border-l border-[#ffffff0f]">
                     {[
+                        {
+                            role: "MERN Stack Developer",
+                            company: "Growsin Private Limited · Fintech",
+                            period: "Sep 2026 – Present",
+                            points: [
+                                "Build the Growsin investment-research product end to end: Hono.js + PostgreSQL (Drizzle ORM) backend, Next.js landing pages and features in the mobile app; shipped 9 releases to Google Play.",
+                                "Integrated stock-order execution with 7 broker APIs behind one broker layer; Zerodha Kite Connect basket orders and Upstox run live in production.",
+                                "Built subscription billing on Zoho Payments with opt-in UPI Autopay and webhook-driven access grants.",
+                                "Built KYC onboarding with CVL KRA PAN verification and automatic fallback to Digio Aadhaar eSign during upstream outages, released behind feature flags.",
+                            ]
+                        },
                         {
                             role: "Software Engineer",
                             company: "Orotron",
@@ -698,7 +710,7 @@ export default function Portfolio() {
                     </a>
                 </div>
                 <p className="dm-sans text-xs text-[#333] tracking-widest uppercase">
-                    Priyanka Kommani · Eluru, AP · 8374412944
+                    Priyanka Kommani · Visakhapatnam, AP · 8374412944
                 </p>
             </section>
         </div>
