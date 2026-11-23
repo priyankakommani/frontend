@@ -77,14 +77,14 @@ const projects: Project[] = [
     {
         title: "Interview Management & Proctoring Platform",
         tag: "AI · Backend · Production",
-        summary: "The interview product I owned the backend for at Orotron: scheduling, live proctoring and AI scoring, used by real candidates.",
+        summary: "A client's interview product I owned the backend for at Orotron: scheduling, live proctoring and AI scoring, used by real candidates.",
         highlights: [
             "Live proctored interviews with VideoSDK, and speech-to-text transcription via Deepgram",
             "Gemini-based candidate scoring, with async jobs managed through QStash",
             "Multi-table PostgreSQL schema behind Node.js + Hono.js REST APIs",
         ],
         stack: ["Node.js", "Hono.js", "PostgreSQL", "Drizzle ORM", "VideoSDK", "Deepgram", "Gemini", "QStash"],
-        privateNote: "Built at Orotron · company product, code is private",
+        privateNote: "Client project built at Orotron · code is private",
         featured: true,
         badge: "In Production",
     },
@@ -123,6 +123,7 @@ const projects: Project[] = [
             "React + Tailwind frontend with live agent-state feedback",
         ],
         stack: ["Node.js", "Express", "React.js", "LiveKit", "Gemini", "AWS S3"],
+        live: "https://livekit-live-api.vercel.app/",
         github: "https://github.com/priyankakommani/livekit-live-api",
     },
     {
