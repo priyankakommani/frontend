@@ -56,6 +56,7 @@ type Project = {
     github?: string;
     privateNote?: string;
     featured?: boolean;
+    badge?: string;
 };
 
 const projects: Project[] = [
@@ -71,6 +72,21 @@ const projects: Project[] = [
         stack: ["Next.js 14", "NestJS", "PostgreSQL", "pgvector", "Gemini", "Redis", "BullMQ", "Stripe"],
         privateNote: "Client project · code is private",
         featured: true,
+        badge: "Featured",
+    },
+    {
+        title: "Interview Management & Proctoring Platform",
+        tag: "AI · Backend · Production",
+        summary: "The interview product I owned the backend for at Orotron: scheduling, live proctoring and AI scoring, used by real candidates.",
+        highlights: [
+            "Live proctored interviews with VideoSDK, and speech-to-text transcription via Deepgram",
+            "Gemini-based candidate scoring, with async jobs managed through QStash",
+            "Multi-table PostgreSQL schema behind Node.js + Hono.js REST APIs",
+        ],
+        stack: ["Node.js", "Hono.js", "PostgreSQL", "Drizzle ORM", "VideoSDK", "Deepgram", "Gemini", "QStash"],
+        privateNote: "Built at Orotron · company product, code is private",
+        featured: true,
+        badge: "In Production",
     },
     {
         title: "Settle — Travel Expense Reimbursement",
@@ -99,8 +115,8 @@ const projects: Project[] = [
     },
     {
         title: "Real-Time AI Interview Platform",
-        tag: "AI · WebRTC · Full Stack",
-        summary: "Live two-way voice interviews with an AI interviewer, answering in under half a second.",
+        tag: "AI · WebRTC · Personal Project",
+        summary: "Built on my own time to go further with real-time voice AI: live two-way interviews with an AI interviewer that answers in under half a second.",
         highlights: [
             "LiveKit Agents + Gemini 2.5 Flash native audio over WebRTC, sub-500 ms responses",
             "Transcripts stream as structured JSON to AWS S3, with MP4 recordings via LiveKit Egress",
@@ -381,9 +397,9 @@ export default function Portfolio() {
                                 className={`card h-full flex flex-col bg-[#161616] border p-6 md:p-7 rounded ${p.featured ? "border-[#c9a96e40]" : "border-[#ffffff10]"}`}>
                                 <div className="flex justify-between items-start gap-3 mb-4">
                                     <span className="dm-sans text-[11px] uppercase tracking-widest text-[#a19c94]">{p.tag}</span>
-                                    {p.featured && (
+                                    {p.badge && (
                                         <span className="dm-sans text-[10px] uppercase tracking-[0.12em] px-2.5 py-1 border border-[#c9a96e44] gold rounded-sm shrink-0">
-                                            Featured
+                                            {p.badge}
                                         </span>
                                     )}
                                 </div>
