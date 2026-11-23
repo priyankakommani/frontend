@@ -120,7 +120,7 @@ const projects: Project[] = [
             "JWT auth, role-scoped analytics and a full audit log",
         ],
         stack: ["TypeScript", "Hono", "PostgreSQL", "Drizzle ORM", "React 18", "Tesseract.js", "Zod"],
-        // Live demo hidden until the demo database is back up: https://settle-six-mu.vercel.app/
+        live: "https://settle-six-mu.vercel.app/",
         github: "https://github.com/priyankakommani/settle",
         image: { src: "/projects/settle.jpg", alt: "Settle sign-in page showing the four steps from trip inbox to settled claim" },
     },
