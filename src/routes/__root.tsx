@@ -8,7 +8,7 @@ export const Route = createRootRoute({
 function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
   // The portfolio is a standalone page with its own navigation.
-  if (pathname.startsWith('/portfolio')) return <Outlet />
+  if (pathname === '/' || pathname.startsWith('/portfolio')) return <Outlet />
 
   return (
     <>

@@ -57,6 +57,10 @@ type Project = {
     privateNote?: string;
     featured?: boolean;
     badge?: string;
+    /** Real screenshot of the live app (public/projects/...). */
+    image?: { src: string; alt: string };
+    /** How it works, for private client projects with nothing to screenshot. */
+    flow?: { steps: { label: string; sub: string }[]; note: string };
 };
 
 const projects: Project[] = [
@@ -73,6 +77,15 @@ const projects: Project[] = [
         privateNote: "Client project · code is private",
         featured: true,
         badge: "Featured",
+        flow: {
+            steps: [
+                { label: "Student asks", sub: "Next.js 14 UI" },
+                { label: "NestJS API", sub: "auth · courses · payments" },
+                { label: "Retrieve", sub: "pgvector search" },
+                { label: "Answer", sub: "Gemini + timestamp citations" },
+            ],
+            note: "Embeddings built in the background on Redis + BullMQ · answers streamed over SSE",
+        },
     },
     {
         title: "Interview Management & Proctoring Platform",
@@ -87,6 +100,15 @@ const projects: Project[] = [
         privateNote: "Client project built at Orotron · code is private",
         featured: true,
         badge: "In Production",
+        flow: {
+            steps: [
+                { label: "Schedule", sub: "Hono.js REST API" },
+                { label: "Live session", sub: "VideoSDK proctoring" },
+                { label: "Transcribe", sub: "Deepgram speech-to-text" },
+                { label: "Score", sub: "Gemini evaluation" },
+            ],
+            note: "Async jobs queued with QStash · data in PostgreSQL (Drizzle ORM)",
+        },
     },
     {
         title: "Settle — Travel Expense Reimbursement",
@@ -98,8 +120,9 @@ const projects: Project[] = [
             "JWT auth, role-scoped analytics and a full audit log",
         ],
         stack: ["TypeScript", "Hono", "PostgreSQL", "Drizzle ORM", "React 18", "Tesseract.js", "Zod"],
-        live: "https://settle-six-mu.vercel.app/",
+        // Live demo hidden until the demo database is back up: https://settle-six-mu.vercel.app/
         github: "https://github.com/priyankakommani/settle",
+        image: { src: "/projects/settle.jpg", alt: "Settle sign-in page showing the four steps from trip inbox to settled claim" },
     },
     {
         title: "AI Full-Stack App Generator",
@@ -112,6 +135,15 @@ const projects: Project[] = [
         ],
         stack: ["TypeScript", "Next.js 14", "Anthropic", "Gemini", "Drizzle ORM"],
         privateNote: "Client project · code is private",
+        flow: {
+            steps: [
+                { label: "Prompt", sub: "plain English" },
+                { label: "Plan", sub: "intent + data model" },
+                { label: "Generate", sub: "streamed code" },
+                { label: "Repair", sub: "tsc / eslint loop" },
+            ],
+            note: "Routes between Anthropic, Gemini and OpenAI-compatible models",
+        },
     },
     {
         title: "Real-Time AI Interview Platform",
@@ -125,9 +157,10 @@ const projects: Project[] = [
         stack: ["Node.js", "Express", "React.js", "LiveKit", "Gemini", "AWS S3"],
         live: "https://livekit-live-api.vercel.app/",
         github: "https://github.com/priyankakommani/livekit-live-api",
+        image: { src: "/projects/ai-interview.jpg", alt: "AI Interview Pro start screen with name and target role fields" },
     },
     {
-        title: "PlateSync — Food Ordering with RBAC",
+        title: "Tasty Food — Food Ordering with RBAC",
         tag: "Full Stack · Access Control",
         summary: "Food ordering platform where what you can see and do depends on your role and your country.",
         highlights: [
@@ -136,7 +169,9 @@ const projects: Project[] = [
             "Role-aware Next.js 14 + Apollo Client frontend",
         ],
         stack: ["NestJS", "GraphQL", "Prisma", "Next.js 14", "Apollo Client", "JWT"],
+        live: "https://food-ordering-application-eight.vercel.app/",
         github: "https://github.com/priyankakommani/food-ordering-application",
+        image: { src: "/projects/platesync.jpg", alt: "Tasty Food dashboard logged in as an admin with global access, showing restaurants in India and America" },
     },
 ];
 
@@ -173,6 +208,42 @@ function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; 
     );
 }
 
+function ProjectMedia({ p }: { p: Project }) {
+    if (p.image) {
+        return (
+            <div className="media mb-5 -mx-1 overflow-hidden rounded border border-[#ffffff10] bg-[#0f0f0f] aspect-[16/10]">
+                <img src={p.image.src} alt={p.image.alt} loading="lazy" decoding="async" width={1280} height={800} className="w-full h-full object-cover object-top" />
+            </div>
+        );
+    }
+    if (p.flow) {
+        return (
+            <div className="mb-5 rounded border border-[#ffffff10] bg-[radial-gradient(400px_circle_at_0%_0%,#c9a96e12,transparent_70%)] bg-[#121212] p-4 md:p-5" aria-label={`How ${p.title} works`}>
+                <p className="dm-sans text-[10px] uppercase tracking-[0.18em] text-[#8f8a82] mb-3">How it works</p>
+                <ol className={p.featured ? "flex flex-col md:flex-row md:items-stretch gap-2 md:gap-0" : "grid grid-cols-1 sm:grid-cols-2 gap-2"}>
+                    {p.flow.steps.map((st, i) => (
+                        <li key={st.label} className={p.featured ? "flex md:flex-1 items-center md:items-stretch" : "flex"}>
+                            <div className="flex-1 rounded-sm border border-[#c9a96e33] bg-[#ffffff05] px-3 py-2.5">
+                                <p className="dm-sans text-[11px] gold font-medium">
+                                    {String(i + 1).padStart(2, "0")} · {st.label}
+                                </p>
+                                <p className="dm-sans text-[12px] text-[#cfcac2] leading-snug mt-0.5">{st.sub}</p>
+                            </div>
+                            {p.featured && i < p.flow!.steps.length - 1 && (
+                                <span className="hidden md:flex items-center px-1.5 text-[#c9a96e88]" aria-hidden>
+                                    →
+                                </span>
+                            )}
+                        </li>
+                    ))}
+                </ol>
+                <p className="dm-sans text-[12px] text-[#a19c94] mt-3">{p.flow.note}</p>
+            </div>
+        );
+    }
+    return null;
+}
+
 function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) {
     return (
         <Reveal>
@@ -197,7 +268,6 @@ export default function Portfolio() {
     return (
         <div className="min-h-screen bg-[#0f0f0f] text-[#ece8e0] font-sans">
             <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap');
         * { box-sizing: border-box; }
         body { margin: 0; }
         html { scroll-padding-top: 72px; }
@@ -211,6 +281,8 @@ export default function Portfolio() {
         .reveal.is-shown { opacity: 1; transform: none; }
         .card { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
         .card:hover { transform: translateY(-4px); border-color: #c9a96e55; box-shadow: 0 16px 48px rgba(0,0,0,.45); }
+        .media img { transition: transform .6s ease; }
+        .card:hover .media img { transform: scale(1.03); }
         .chip { transition: background .15s, color .15s, border-color .15s; }
         .chip:hover { background: #c9a96e1f; color: #d4b57c; border-color: #c9a96e44; }
         .btn { transition: opacity .2s, background .2s, transform .2s; }
@@ -404,6 +476,7 @@ export default function Portfolio() {
                                         </span>
                                     )}
                                 </div>
+                                <ProjectMedia p={p} />
                                 <h3 className="playfair text-xl font-semibold mb-2">{p.title}</h3>
                                 <p className="dm-sans text-sm text-[#cfcac2] leading-relaxed mb-4">{p.summary}</p>
                                 <ul className={`space-y-1.5 mb-5 ${p.featured ? "md:grid md:grid-cols-3 md:gap-6 md:space-y-0" : ""}`}>
