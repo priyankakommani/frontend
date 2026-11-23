@@ -1,11 +1,15 @@
 import * as React from 'react'
-import { Link, Outlet, createRootRoute } from '@tanstack/react-router'
+import { Link, Outlet, createRootRoute, useRouterState } from '@tanstack/react-router'
 
 export const Route = createRootRoute({
   component: RootComponent,
 })
 
 function RootComponent() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname })
+  // The portfolio is a standalone page with its own navigation.
+  if (pathname.startsWith('/portfolio')) return <Outlet />
+
   return (
     <>
       <div className="p-2 flex gap-2 text-lg">

@@ -1,717 +1,466 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
-// const skills = [
-//     { name: "Node.js", category: "Backend" },
-//     { name: "Hono.js", category: "Backend" },
-//     { name: "Express", category: "Backend" },
-//     { name: "REST APIs", category: "Backend" },
-//     { name: "Django", category: "Backend" },
-//     { name: "PostgreSQL", category: "Database" },
-//     { name: "Drizzle ORM", category: "Database" },
-//     { name: "React.js", category: "Frontend" },
-//     { name: "Tailwind CSS", category: "Frontend" },
-//     { name: "WebRTC", category: "Integrations" },
-//     { name: "LiveKit", category: "Integrations" },
-//     { name: "AWS S3", category: "Integrations" },
-//     { name: "VideoSDK", category: "Integrations" },
-//     { name: "QStash", category: "Integrations" },
-//     { name: "Deepgram", category: "Integrations" },
-//     { name: "Gemini AI", category: "Integrations" },
-//     { name: "Python", category: "Languages" },
-//     { name: "JavaScript", category: "Languages" },
-//     { name: "Git", category: "Tools" },
-//     { name: "NestJS", category: "Backend" },
-//     { name: "GraphQL", category: "Backend" },
-//     { name: "Prisma", category: "Database" },
-//     { name: "Next.js", category: "Frontend" },
-//     { name: "Zod", category: "Tools" },
-//     { name: "JWT", category: "Tools" },
-// ];
+const RESUME_URL = "/Priyanka_Kommani_Resume.pdf";
+const EMAIL = "priyankakommani@gmail.com";
+const GITHUB = "https://github.com/priyankakommani";
+const LINKEDIN = "https://www.linkedin.com/in/priyanka-kommani-668315244";
 
-// const projects = [
-//     {
-//         title: "Real-Time AI Interview Platform",
-//         desc: "Full-stack AI-powered interview platform enabling real-time, bidirectional voice interviews via WebRTC and Google Gemini 2.5 Flash Native Audio API. Integrated LiveKit Agents SDK for low-latency (<500ms) AI voice orchestration, built an in-memory transcription pipeline publishing structured JSON to AWS S3, and configured LiveKit Egress for cloud MP4 recording. Features a responsive React + Tailwind frontend with live agent state feedback (listening, speaking, processing).",
-//         stack: ["Node.js", "Express", "React.js", "WebRTC", "LiveKit", "Gemini AI", "AWS S3", "Tailwind CSS"],
-//         tag: "AI · WebRTC · Full Stack",
-//     },
-//     {
-//         title: "Interview Management & Proctoring Platform",
-//         desc: "End-to-end interview scheduling system with VideoSDK-based live proctoring, Deepgram speech-to-text transcription, Gemini AI candidate scoring, and QStash-managed async job queues.",
-//         stack: ["Node.js", "Hono.js", "PostgreSQL", "VideoSDK", "Deepgram", "Gemini AI", "QStash"],
-//         tag: "AI · Backend",
-//     },
-//     {
-//         title: "PlateSync - Food Ordering Application",
-//         desc: "Full-stack food ordering monorepo with complete Role-Based Access Control (RBAC) across all 5 core functions — view restaurants, create orders, checkout, cancel orders, and manage payment methods. Implemented bonus Re-BAC with country-scoped access restricting Managers and Members to their region while Admin retains global visibility. Features a GraphQL API built with NestJS code-first schema generation, and a responsive Next.js 14 frontend with role-aware UI.",
-//         stack: ["NestJS", "GraphQL", "Prisma", "Next.js", "Apollo Client", "Tailwind CSS", "JWT"],
-//         tag: "Full Stack · RBAC",
-//     },
-//     {
-//         title: "SessionSync - Mentorship Platform",
-//         desc: "Full-stack mentorship platform with a Node.js/Express REST API and React + Vite frontend. Features JWT-based authentication, role-based access control for PARENT and MENTOR roles, lesson and session management, booking system, and Google Gemini AI-powered LLM text summarization. Includes Zod validation, in-memory rate limiting on the LLM endpoint (10 req/min), and a fully relational PostgreSQL schema via Drizzle ORM.",
-//         stack: ["Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Gemini AI", "React.js", "Zod", "JWT"],
-//         tag: "Full Stack · AI",
-//     },
-//     {
-//         title: "IoT Motor Monitoring & Control System",
-//         desc: "Real-time backend platform to remotely monitor and control industrial motors via mobile apps using gateway-based communication with reliable state management.",
-//         stack: ["Node.js", "PostgreSQL", "REST APIs", "IoT"],
-//         tag: "IoT · Backend",
-//     },
-//     {
-//         title: "Automated Paper Evaluation",
-//         desc: "NLP-based answer grading system using NLTK and SpaCy to automatically evaluate written responses with consistent, unbiased scoring — reducing manual evaluation effort.",
-//         stack: ["Python", "NLTK", "SpaCy", "NLP"],
-//         tag: "NLP · Major Project",
-//     },
-//     {
-//         title: "Restaurant Review Prediction",
-//         desc: "Sentiment classification model using Python, Scikit-learn, and TensorFlow to predict positive/negative reviews and surface actionable business insights.",
-//         stack: ["Python", "TensorFlow", "Scikit-learn"],
-//         tag: "ML · NLP",
-//     },
-//     {
-//         title: "Multimedia Data Compression using CNN",
-//         desc: "CNN-based image compression model to optimize storage and transmission of multimedia data across social media platforms.",
-//         stack: ["Python", "TensorFlow", "Deep Learning"],
-//         tag: "Deep Learning · Minor Project",
-//     },
-// ];
-
-// export default function Portfolio() {
-//     const [visible, setVisible] = useState(false);
-
-//     useEffect(() => {
-//         setTimeout(() => setVisible(true), 100);
-//     }, []);
-
-//     const scrollTo = (id: string) => {
-//         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-//     };
-
-//     return (
-//         <div className="min-h-screen bg-[#0f0f0f] text-[#e8e4dc] font-sans">
-//             <style>{`
-//         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap');
-//         * { box-sizing: border-box; }
-//         body { margin: 0; }
-//         .playfair { font-family: 'Playfair Display', serif; }
-//         .dm-sans { font-family: 'DM Sans', sans-serif; }
-//         .fade-in { opacity: 0; transform: translateY(24px); animation: fadeUp 0.7s forwards; }
-//         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-//         .delay-1 { animation-delay: 0.1s; }
-//         .delay-2 { animation-delay: 0.2s; }
-//         .delay-3 { animation-delay: 0.3s; }
-//         .delay-4 { animation-delay: 0.4s; }
-//         .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-//         .card-hover:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
-//         .nav-link { transition: color 0.2s; cursor: pointer; }
-//         .nav-link:hover { color: #c9a96e; }
-//         .gold { color: #c9a96e; }
-//         .gold-border { border-color: #c9a96e; }
-//         .gold-bg { background-color: #c9a96e; }
-//         .divider { height: 1px; background: linear-gradient(to right, transparent, #c9a96e44, transparent); }
-//         .tag-pill { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
-//         .skill-chip { transition: background 0.15s, color 0.15s; }
-//         .skill-chip:hover { background: #c9a96e22 !important; color: #c9a96e !important; }
-//         .featured-badge { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
-//       `}</style>
-
-//             {/* NAV */}
-//             <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0f0f0f] border-b border-[#ffffff0f]">
-//                 <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center dm-sans">
-//                     <span className="playfair text-lg font-semibold tracking-wide gold">PK</span>
-//                     <div className="flex gap-8 text-sm text-[#aaa]">
-//                         {["about", "experience", "projects", "contact"].map((s) => (
-//                             <span key={s} className="nav-link capitalize" onClick={() => scrollTo(s)}>{s}</span>
-//                         ))}
-//                     </div>
-//                 </div>
-//             </nav>
-
-//             {/* HERO */}
-//             <section className="min-h-screen flex flex-col justify-center max-w-6xl mx-auto px-6 pt-24">
-//                 <div className={`${visible ? "fade-in" : "opacity-0"}`}>
-//                     <p className="dm-sans text-sm tracking-[0.2em] uppercase gold mb-6 delay-1 fade-in">Backend Developer</p>
-//                     <h1 className="playfair text-7xl font-bold leading-none mb-6 delay-2 fade-in" style={{ letterSpacing: '-0.02em' }}>
-//                         Priyanka<br />
-//                         <span style={{ WebkitTextStroke: '1px #c9a96e', color: 'transparent' }}>Kommani</span>
-//                     </h1>
-//                     <p className="dm-sans text-lg text-[#888] max-w-xl leading-relaxed mb-10 delay-3 fade-in">
-//                         Building scalable APIs, real-time systems, and AI-powered backends.<br />
-//                         1+ year of production experience · Node.js · PostgreSQL · AI Integrations
-//                     </p>
-//                     <div className="flex gap-4 delay-4 fade-in">
-//                         <span
-//                             onClick={() => scrollTo("contact")}
-//                             className="gold-bg text-[#0f0f0f] px-6 py-3 text-sm dm-sans font-medium tracking-wide hover:opacity-90 transition"
-//                             style={{ borderRadius: '2px', cursor: 'pointer' }}>
-//                             Get In Touch
-//                         </span>
-//                         <a href="https://github.com/priyankakommani" target="_blank" rel="noreferrer"
-//                             className="border gold-border gold px-6 py-3 text-sm dm-sans font-medium tracking-wide hover:bg-[#c9a96e15] transition"
-//                             style={{ borderRadius: '2px' }}>
-//                             GitHub →
-//                         </a>
-//                     </div>
-//                 </div>
-
-//                 <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
-//                     <span className="dm-sans text-xs tracking-widest uppercase text-[#888]">scroll</span>
-//                     <div className="w-px h-10 bg-[#c9a96e]"></div>
-//                 </div>
-//             </section>
-
-//             <div className="divider mx-6"></div>
-
-//             {/* ABOUT */}
-//             <section id="about" className="max-w-6xl mx-auto px-6 py-24">
-//                 <div className="grid md:grid-cols-2 gap-16 items-start">
-//                     <div>
-//                         <p className="dm-sans text-xs tracking-[0.2em] uppercase gold mb-4">About</p>
-//                         <h2 className="playfair text-4xl font-semibold mb-8 leading-tight">Crafting backends<br />that scale.</h2>
-//                         <p className="dm-sans text-[#aaa] leading-relaxed mb-6">
-//                             Backend Developer with 1.5 years of professional experience
-//                             at Orotron, designing APIs, architecting databases, and integrating complex third-party
-//                             services into production systems.
-//                         </p>
-//                         <p className="dm-sans text-[#aaa] leading-relaxed mb-8">
-//                             I specialize in building reliable, high-performance server-side applications and have
-//                             hands-on experience with AI-powered platforms, real-time WebRTC systems, and IoT backends.
-//                             I also have frontend exposure with React.js and Tailwind CSS.
-//                         </p>
-//                         <div className="grid grid-cols-3 gap-4 pt-4 border-t border-[#ffffff0f]">
-//                             {[["B.Tech CSE", "IIIT Srikakulam", "CGPA 9.0"], ["Experience", "1+ Years", "Production"], ["Location", "Eluru, AP", "India"]].map(([title, val, sub]) => (
-//                                 <div key={title}>
-//                                     <p className="dm-sans text-xs text-[#555] uppercase tracking-widest mb-1">{title}</p>
-//                                     <p className="dm-sans text-sm font-medium text-[#e8e4dc]">{val}</p>
-//                                     <p className="dm-sans text-xs text-[#666]">{sub}</p>
-//                                 </div>
-//                             ))}
-//                         </div>
-//                     </div>
-
-//                     <div>
-//                         <p className="dm-sans text-xs tracking-[0.2em] uppercase gold mb-6">Tech Stack</p>
-//                         <div className="flex flex-wrap gap-2">
-//                             {skills.map((skill) => (
-//                                 <span key={skill.name}
-//                                     className="skill-chip dm-sans text-xs px-3 py-1.5 rounded-sm border border-[#ffffff0f] text-[#aaa] bg-[#ffffff05] cursor-default">
-//                                     {skill.name}
-//                                 </span>
-//                             ))}
-//                         </div>
-//                     </div>
-//                 </div>
-//             </section>
-
-//             <div className="divider mx-6"></div>
-
-//             {/* EXPERIENCE */}
-//             <section id="experience" className="max-w-6xl mx-auto px-6 py-24">
-//                 <p className="dm-sans text-xs tracking-[0.2em] uppercase gold mb-4">Experience</p>
-//                 <h2 className="playfair text-4xl font-semibold mb-14">Where I've worked.</h2>
-
-//                 <div className="relative pl-6 border-l border-[#ffffff0f]">
-//                     {[
-//                         {
-//                             role: "Backend Developer ",
-//                             company: "Orotron",
-//                             period: "2024 – Present",
-//                             points: [
-//                                 "Designed and maintained scalable backend systems using Node.js and Hono.js for core product features.",
-//                                 "Architected PostgreSQL schemas and wrote optimized queries using Drizzle ORM for business-critical operations.",
-//                                 "Delivered reliable REST APIs in collaboration with frontend and product teams, contributing to faster feature releases.",
-//                             ]
-//                         },
-//                     ].map((exp, i) => (
-//                         <div key={i} className="mb-12 relative">
-//                             <div className="absolute -left-[29px] top-1.5 w-3 h-3 rounded-full gold-bg border-2 border-[#0f0f0f]"></div>
-//                             <div className="flex flex-wrap justify-between items-start mb-3">
-//                                 <div>
-//                                     <h3 className="playfair text-xl font-semibold">{exp.role}</h3>
-//                                     <p className="dm-sans text-sm gold">{exp.company}</p>
-//                                 </div>
-//                                 <span className="dm-sans text-xs text-[#555] tracking-widest uppercase mt-1">{exp.period}</span>
-//                             </div>
-//                             <ul className="space-y-2">
-//                                 {exp.points.map((p, j) => (
-//                                     <li key={j} className="dm-sans text-sm text-[#888] flex gap-3">
-//                                         <span className="gold mt-1 shrink-0">—</span>
-//                                         <span>{p}</span>
-//                                     </li>
-//                                 ))}
-//                             </ul>
-//                         </div>
-//                     ))}
-//                 </div>
-//             </section>
-
-//             <div className="divider mx-6"></div>
-
-//             {/* PROJECTS */}
-//             <section id="projects" className="max-w-6xl mx-auto px-6 py-24">
-//                 <p className="dm-sans text-xs tracking-[0.2em] uppercase gold mb-4">Projects</p>
-//                 <h2 className="playfair text-4xl font-semibold mb-14">Things I've built.</h2>
-
-//                 <div className="grid md:grid-cols-2 gap-6">
-//                     {projects.map((project, i) => (
-//                         <div key={i}
-//                             className={`card-hover bg-[#161616] border p-7 ${i === 0 ? "md:col-span-2 border-[#c9a96e22]" : "border-[#ffffff08]"}`}
-//                             style={{ borderRadius: '4px' }}>
-//                             <div className="flex justify-between items-start mb-4">
-//                                 <span className="tag-pill dm-sans text-[#555] tracking-widest">{project.tag}</span>
-//                                 {i === 0 && (
-//                                     <span className="featured-badge dm-sans px-2.5 py-1 border border-[#c9a96e33] gold" style={{ borderRadius: '2px' }}>
-//                                         Featured
-//                                     </span>
-//                                 )}
-//                             </div>
-//                             <h3 className="playfair text-xl font-semibold mb-3">{project.title}</h3>
-//                             <p className="dm-sans text-sm text-[#777] leading-relaxed mb-5">{project.desc}</p>
-//                             <div className="flex flex-wrap gap-2 pt-4 border-t border-[#ffffff06]">
-//                                 {project.stack.map((s) => (
-//                                     <span key={s} className="dm-sans text-xs text-[#555] bg-[#ffffff04] border border-[#ffffff08] px-2.5 py-1" style={{ borderRadius: '2px' }}>
-//                                         {s}
-//                                     </span>
-//                                 ))}
-//                             </div>
-//                         </div>
-//                     ))}
-//                 </div>
-//             </section>
-
-//             <div className="divider mx-6"></div>
-
-//             {/* CONTACT */}
-//             <section id="contact" className="max-w-6xl mx-auto px-6 py-24 text-center">
-//                 <p className="dm-sans text-xs tracking-[0.2em] uppercase gold mb-4">Contact</p>
-//                 <h2 className="playfair text-5xl font-semibold mb-6">Let's connect.</h2>
-//                 <p className="dm-sans text-[#666] mb-12 max-w-md mx-auto">
-//                     Open to backend, full-stack, and software engineering roles. Feel free to reach out.
-//                 </p>
-//                 <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-//                     <a href="mailto:priyankakommani@gmail.com"
-//                         className="gold-bg text-[#0f0f0f] px-8 py-3.5 text-sm dm-sans font-medium tracking-wide hover:opacity-90 transition"
-//                         style={{ borderRadius: '2px' }}>
-//                         priyankakommani@gmail.com
-//                     </a>
-//                     <a href="https://github.com/priyankakommani" target="_blank" rel="noreferrer"
-//                         className="border gold-border gold px-8 py-3.5 text-sm dm-sans font-medium hover:bg-[#c9a96e10] transition"
-//                         style={{ borderRadius: '2px' }}>
-//                         GitHub
-//                     </a>
-//                     <a href="https://www.linkedin.com/in/priyanka-kommani-668315244" target="_blank" rel="noreferrer"
-//                         className="border border-[#ffffff15] text-[#888] px-8 py-3.5 text-sm dm-sans font-medium hover:border-[#c9a96e44] hover:text-[#c9a96e] transition"
-//                         style={{ borderRadius: '2px' }}>
-//                         LinkedIn
-//                     </a>
-//                 </div>
-//                 <p className="dm-sans text-xs text-[#333] tracking-widest uppercase">
-//                     Priyanka Kommani · Eluru, AP · 8374412944
-//                 </p>
-//             </section>
-//         </div>
-//     );
-// }
-
-import { useEffect, useState } from "react";
-
-const skills = [
-    { name: "Node.js", category: "Backend" },
-    { name: "Hono.js", category: "Backend" },
-    { name: "NestJS", category: "Backend" },
-    { name: "Express", category: "Backend" },
-    { name: "REST APIs", category: "Backend" },
-    { name: "GraphQL", category: "Backend" },
-    { name: "WebSockets", category: "Backend" },
-    { name: "Gemini", category: "AI / LLM" },
-    { name: "Anthropic", category: "AI / LLM" },
-    { name: "OpenAI-compatible", category: "AI / LLM" },
-    { name: "RAG", category: "AI / LLM" },
-    { name: "pgvector", category: "AI / LLM" },
-    { name: "Prompt Engineering", category: "AI / LLM" },
-    { name: "PostgreSQL", category: "Database" },
-    { name: "Drizzle ORM", category: "Database" },
-    { name: "Prisma", category: "Database" },
-    { name: "Redis", category: "Database" },
-    { name: "MongoDB", category: "Database" },
-    { name: "Next.js 14", category: "Frontend" },
-    { name: "React.js", category: "Frontend" },
-    { name: "Tailwind CSS", category: "Frontend" },
-    { name: "WebRTC", category: "Integrations" },
-    { name: "LiveKit", category: "Integrations" },
-    { name: "AWS S3", category: "Integrations" },
-    { name: "VideoSDK", category: "Integrations" },
-    { name: "QStash", category: "Integrations" },
-    { name: "BullMQ", category: "Integrations" },
-    { name: "Deepgram", category: "Integrations" },
-    { name: "Stripe", category: "Integrations" },
-    { name: "Razorpay", category: "Integrations" },
-    { name: "Python", category: "Languages" },
-    { name: "TypeScript", category: "Languages" },
-    { name: "JavaScript", category: "Languages" },
-    { name: "SQL", category: "Languages" },
-    { name: "Git", category: "Tools" },
-    { name: "Docker", category: "Tools" },
-    { name: "JWT", category: "Tools" },
-    { name: "Zod", category: "Tools" },
+const skillGroups: { title: string; items: string[] }[] = [
+    { title: "Backend", items: ["Node.js", "TypeScript", "Express", "NestJS", "Hono.js", "REST APIs", "GraphQL", "WebSockets"] },
+    { title: "Frontend", items: ["React.js", "Next.js 14", "Tailwind CSS", "TanStack Query"] },
+    { title: "Data", items: ["PostgreSQL", "Drizzle ORM", "Prisma", "Redis", "MongoDB", "BullMQ"] },
+    { title: "AI / LLM", items: ["Gemini", "Anthropic", "OpenAI APIs", "RAG", "pgvector", "LiveKit Agents"] },
+    { title: "Cloud & Tools", items: ["AWS S3", "Docker", "GitHub Actions", "Git", "JWT", "Zod"] },
+    { title: "Integrations", items: ["Zerodha Kite", "Upstox", "Zoho Payments", "UPI Autopay", "Stripe", "Razorpay", "Deepgram"] },
 ];
 
 const stats = [
-    { value: "1.5+ yrs", label: "Production experience, end to end" },
-    { value: "7", label: "Broker APIs integrated (Growsin)" },
-    { value: "9", label: "Google Play releases shipped" },
-    { value: "<500ms", label: "Real-time AI response latency" },
+    { value: "1.5+ yrs", label: "Shipping production software" },
+    { value: "7", label: "Broker APIs integrated" },
+    { value: "9", label: "Google Play releases" },
+    { value: "<500ms", label: "Real-time AI voice latency" },
 ];
 
-const projects = [
+const experience = [
     {
-        title: "Aigrad — AI-Powered Learning Platform",
-        desc: "RAG-powered learning platform built solo, end to end: a 55-route Next.js 14 frontend (App Router, TanStack Query, dark mode) and a NestJS backend (40+ controllers, ~37k LOC) on PostgreSQL/Drizzle. Engineered a RAG pipeline over pgvector and Gemini for grounded AI tutor answers with video-timestamp citations, a real-time agentic coding lab over Socket.IO, async embedding jobs via Redis/BullMQ, and Stripe + Razorpay payments with webhook-driven fulfillment.",
-        stack: ["Next.js 14", "NestJS", "PostgreSQL", "pgvector", "Gemini", "Redis", "BullMQ", "Stripe"],
-        tag: "AI · RAG · Full Stack",
-        badge: "Flagship Build",
-        note: "Full-stack AI engineering engagement",
+        role: "MERN Stack Developer",
+        company: "Growsin Private Limited · Fintech",
+        period: "Sep 2026 – Present",
+        points: [
+            "Build the Growsin investment-research product end to end: Hono.js + PostgreSQL (Drizzle ORM) backend, Next.js landing pages and mobile-app features; shipped 9 releases to Google Play.",
+            "Integrated stock-order execution with 7 broker APIs behind one broker layer; Zerodha Kite Connect basket orders and Upstox run live in production.",
+            "Built subscription billing on Zoho Payments with opt-in UPI Autopay and webhook-driven access grants.",
+            "Built KYC onboarding with CVL KRA PAN verification and automatic fallback to Digio Aadhaar eSign during upstream outages, released behind feature flags.",
+        ],
     },
     {
-        title: "AI Full-Stack App Generator",
-        desc: "A multi-stage LLM pipeline that turns a natural-language prompt into a complete, working Next.js 14 + TypeScript + Tailwind application: intent classification → decomposition → data-model extraction → streamed codegen. Provider-agnostic model routing across Anthropic, Gemini, and OpenAI-compatible APIs, with JSON-schema-validated output guardrails, a validate-and-repair loop (tsc/eslint), and per-plan token budgeting to bound edits and cost.",
-        stack: ["TypeScript", "Next.js 14", "Anthropic", "Gemini", "Drizzle ORM"],
-        tag: "AI · LLM Pipelines",
-        badge: "Flagship Build",
-        note: "Full-stack AI engineering engagement",
+        role: "Software Engineer",
+        company: "Orotron",
+        period: "Nov 2024 – Mar 2026",
+        points: [
+            "Sole backend owner: designed and shipped the production REST APIs (Node.js, Hono.js) behind every core feature.",
+            "Modelled multi-table PostgreSQL schemas with Drizzle ORM and optimised queries on business-critical flows.",
+            "Built real-time integrations with LiveKit, VideoSDK, Deepgram and AWS S3 for live AI interview and proctoring sessions, with Gemini-based candidate scoring.",
+            "Owned delivery from schema design to production deployment, working directly with frontend and product.",
+        ],
+    },
+];
+
+type Project = {
+    title: string;
+    tag: string;
+    summary: string;
+    highlights: string[];
+    stack: string[];
+    live?: string;
+    github?: string;
+    privateNote?: string;
+    featured?: boolean;
+};
+
+const projects: Project[] = [
+    {
+        title: "Aigrad — AI-Powered Learning Platform",
+        tag: "AI · RAG · Full Stack",
+        summary: "A learning platform with an AI tutor that answers from course content and cites the exact video timestamp. Built solo, end to end.",
+        highlights: [
+            "55-route Next.js 14 frontend and a NestJS backend (40+ controllers, ~37k LOC) on PostgreSQL + Drizzle",
+            "RAG pipeline on pgvector + Gemini, with embedding jobs running on Redis + BullMQ",
+            "Real-time coding lab over Socket.IO; Stripe + Razorpay payments with webhook fulfilment",
+        ],
+        stack: ["Next.js 14", "NestJS", "PostgreSQL", "pgvector", "Gemini", "Redis", "BullMQ", "Stripe"],
+        privateNote: "Client project · code is private",
+        featured: true,
     },
     {
         title: "Settle — Travel Expense Reimbursement",
-        desc: "Turns an employee's post-trip inbox into a policy-checked expense claim, then tracks it through approval and payment. A hand-rolled MIME parser and confidence-scored classifier ingest raw .eml files and receipt images (Tesseract OCR), deduplicate resends and forwards, and drop promo noise. Pure domain modules then take over: a config-driven policy engine gives each line an allowed / capped / disallowed / needs-info verdict, a settlement calculator nets the result against advances, value-band approval routing walks the reporting chain, and a strict state machine drives the claim from Draft to Paid. Includes JWT + scrypt auth, role-scoped analytics, in-app notifications and a full audit log.",
-        stack: ["TypeScript", "Hono", "PostgreSQL", "Drizzle ORM", "React 18", "TanStack Query", "Tesseract.js", "Zod"],
         tag: "Full Stack · Workflow Automation",
+        summary: "Turns an employee's post-trip inbox into a policy-checked expense claim and tracks it from Draft to Paid.",
+        highlights: [
+            "Parses raw .eml emails and receipt images (OCR), removing duplicates and promo noise",
+            "Config-driven policy engine, approval routing up the reporting chain, strict state machine",
+            "JWT auth, role-scoped analytics and a full audit log",
+        ],
+        stack: ["TypeScript", "Hono", "PostgreSQL", "Drizzle ORM", "React 18", "Tesseract.js", "Zod"],
         live: "https://settle-six-mu.vercel.app/",
         github: "https://github.com/priyankakommani/settle",
     },
     {
+        title: "AI Full-Stack App Generator",
+        tag: "AI · LLM Pipelines",
+        summary: "Type a prompt, get a complete working Next.js + TypeScript + Tailwind app.",
+        highlights: [
+            "Multi-stage pipeline: intent → decomposition → data model → streamed code generation",
+            "Model routing across Anthropic, Gemini and OpenAI-compatible APIs with JSON-schema guardrails",
+            "tsc/eslint validate-and-repair loop and per-plan token budgets to control cost",
+        ],
+        stack: ["TypeScript", "Next.js 14", "Anthropic", "Gemini", "Drizzle ORM"],
+        privateNote: "Client project · code is private",
+    },
+    {
         title: "Real-Time AI Interview Platform",
-        desc: "Full-stack AI interview platform enabling real-time, bidirectional voice interviews via WebRTC and Gemini 2.5 Flash Native Audio. Integrated LiveKit Agents SDK for sub-500ms AI voice orchestration, built an in-memory transcription pipeline publishing structured JSON to AWS S3, and configured LiveKit Egress for cloud MP4 recording. Responsive React + Tailwind frontend with live agent-state feedback.",
-        stack: ["Node.js", "Express", "React.js", "WebRTC", "LiveKit", "Gemini", "AWS S3"],
         tag: "AI · WebRTC · Full Stack",
+        summary: "Live two-way voice interviews with an AI interviewer, answering in under half a second.",
+        highlights: [
+            "LiveKit Agents + Gemini 2.5 Flash native audio over WebRTC, sub-500 ms responses",
+            "Transcripts stream as structured JSON to AWS S3, with MP4 recordings via LiveKit Egress",
+            "React + Tailwind frontend with live agent-state feedback",
+        ],
+        stack: ["Node.js", "Express", "React.js", "LiveKit", "Gemini", "AWS S3"],
         github: "https://github.com/priyankakommani/livekit-live-api",
     },
     {
-        title: "Interview Management & Proctoring Platform",
-        desc: "End-to-end interview scheduling system with VideoSDK-based live proctoring, Deepgram speech-to-text transcription, Gemini AI candidate scoring, and QStash-managed async job queues over a multi-table PostgreSQL schema.",
-        stack: ["Node.js", "Hono.js", "PostgreSQL", "VideoSDK", "Deepgram", "Gemini"],
-        tag: "AI · Backend",
-    },
-    {
         title: "PlateSync — Food Ordering with RBAC",
-        desc: "Full-stack food ordering platform with RBAC across 5 permission levels, plus country-scoped Re-BAC restricting Managers and Members to their region while Admin retains global visibility. Code-first GraphQL API in NestJS with JWT guards and role decorators, and a role-aware Next.js 14 + Apollo Client frontend.",
+        tag: "Full Stack · Access Control",
+        summary: "Food ordering platform where what you can see and do depends on your role and your country.",
+        highlights: [
+            "RBAC across 5 permission levels, plus country-scoped access for managers and members",
+            "Code-first GraphQL API in NestJS with JWT guards and role decorators",
+            "Role-aware Next.js 14 + Apollo Client frontend",
+        ],
         stack: ["NestJS", "GraphQL", "Prisma", "Next.js 14", "Apollo Client", "JWT"],
-        tag: "Full Stack · RBAC",
         github: "https://github.com/priyankakommani/food-ordering-application",
-    },
-    {
-        title: "SessionSync — Mentorship Platform",
-        desc: "Dual-role (PARENT / MENTOR) platform with Gemini AI session summarization, in-memory rate limiting (10 req/min per IP) on the LLM endpoint, strict Zod validation, and a relational PostgreSQL schema via Drizzle ORM.",
-        stack: ["Node.js", "Express", "PostgreSQL", "Drizzle ORM", "Gemini", "React.js"],
-        tag: "Full Stack · AI",
-        github: "https://github.com/priyankakommani/Mentora-Paltform",
-    },
-    {
-        title: "Automated Paper Evaluation",
-        desc: "NLP-based answer grading system using NLTK and SpaCy to automatically evaluate written responses with consistent, unbiased scoring — final-year major project.",
-        stack: ["Python", "NLTK", "SpaCy", "NLP"],
-        tag: "NLP · Major Project",
-    },
-    {
-        title: "Restaurant Review Prediction",
-        desc: "Sentiment classification model using Python, Scikit-learn, and TensorFlow to predict positive/negative reviews and surface actionable business insights.",
-        stack: ["Python", "TensorFlow", "Scikit-learn"],
-        tag: "ML · NLP",
     },
 ];
 
-export default function Portfolio() {
-    const [visible, setVisible] = useState(false);
+const NAV = ["about", "experience", "projects", "contact"] as const;
+
+/** Fades content up the first time it scrolls into view. Shows immediately if the browser can't observe. */
+function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
+    const ref = useRef<HTMLDivElement>(null);
+    const [shown, setShown] = useState(false);
 
     useEffect(() => {
-        setTimeout(() => setVisible(true), 100);
+        const el = ref.current;
+        if (!el || typeof IntersectionObserver === "undefined") {
+            setShown(true);
+            return;
+        }
+        const io = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setShown(true);
+                    io.disconnect();
+                }
+            },
+            { threshold: 0.12 },
+        );
+        io.observe(el);
+        return () => io.disconnect();
     }, []);
 
-    const scrollTo = (id: string) => {
-        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    };
+    return (
+        <div ref={ref} className={`reveal ${shown ? "is-shown" : ""} ${className}`} style={{ transitionDelay: `${delay}ms` }}>
+            {children}
+        </div>
+    );
+}
+
+function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) {
+    return (
+        <Reveal>
+            <p className="dm-sans text-xs tracking-[0.2em] uppercase gold mb-4">{eyebrow}</p>
+            <h2 className="playfair text-3xl md:text-4xl font-semibold mb-12 md:mb-14 leading-tight">{title}</h2>
+        </Reveal>
+    );
+}
+
+export default function Portfolio() {
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 16);
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
+
+    const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
     return (
-        <div className="min-h-screen bg-[#0f0f0f] text-[#e8e4dc] font-sans">
+        <div className="min-h-screen bg-[#0f0f0f] text-[#ece8e0] font-sans">
             <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap');
         * { box-sizing: border-box; }
         body { margin: 0; }
+        html { scroll-padding-top: 72px; }
         .playfair { font-family: 'Playfair Display', serif; }
         .dm-sans { font-family: 'DM Sans', sans-serif; }
-        .fade-in { opacity: 0; transform: translateY(24px); animation: fadeUp 0.7s forwards; }
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-        .delay-5 { animation-delay: 0.5s; }
-        .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        .card-hover:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
-        .nav-link { transition: color 0.2s; cursor: pointer; }
-        .nav-link:hover { color: #c9a96e; }
-        .gold { color: #c9a96e; }
+        .gold { color: #d4b57c; }
         .gold-border { border-color: #c9a96e; }
         .gold-bg { background-color: #c9a96e; }
         .divider { height: 1px; background: linear-gradient(to right, transparent, #c9a96e44, transparent); }
-        .tag-pill { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
-        .skill-chip { transition: background 0.15s, color 0.15s; }
-        .skill-chip:hover { background: #c9a96e22 !important; color: #c9a96e !important; }
-        .featured-badge { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
-        .stat-num { font-variant-numeric: tabular-nums; }
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+        .reveal.is-shown { opacity: 1; transform: none; }
+        .card { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+        .card:hover { transform: translateY(-4px); border-color: #c9a96e55; box-shadow: 0 16px 48px rgba(0,0,0,.45); }
+        .chip { transition: background .15s, color .15s, border-color .15s; }
+        .chip:hover { background: #c9a96e1f; color: #d4b57c; border-color: #c9a96e44; }
+        .btn { transition: opacity .2s, background .2s, transform .2s; }
+        .btn:hover { transform: translateY(-1px); }
+        .link-u { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .25s; }
+        .link-u:hover { background-size: 100% 1px; }
+        .pulse { box-shadow: 0 0 0 0 rgba(74,222,128,.6); animation: pulse 2s infinite; }
+        @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(74,222,128,0); } 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); } }
+        .hero-glow { background: radial-gradient(600px circle at 15% 30%, #c9a96e14, transparent 60%); }
+        @media (prefers-reduced-motion: reduce) {
+          .reveal { opacity: 1; transform: none; transition: none; }
+          .card, .btn, .pulse { transition: none; animation: none; }
+          html { scroll-behavior: auto; }
+        }
       `}</style>
 
             {/* NAV */}
-            <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0f0f0f] border-b border-[#ffffff0f]">
-                <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center dm-sans">
-                    <span className="playfair text-lg font-semibold tracking-wide gold">PK</span>
-                    <div className="flex gap-8 text-sm text-[#aaa]">
-                        {["about", "experience", "projects", "contact"].map((s) => (
-                            <span key={s} className="nav-link capitalize" onClick={() => scrollTo(s)}>{s}</span>
+            <nav className={`fixed top-0 inset-x-0 z-50 transition-colors ${scrolled ? "bg-[#0f0f0fe6] backdrop-blur border-b border-[#ffffff12]" : "bg-transparent"}`}>
+                <div className="max-w-6xl mx-auto px-5 md:px-6 py-4 flex justify-between items-center dm-sans">
+                    <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="playfair text-lg font-semibold tracking-wide gold" aria-label="Back to top">
+                        PK
+                    </button>
+                    <div className="flex items-center gap-4 md:gap-8 text-xs md:text-sm text-[#b5b0a8]">
+                        {NAV.map((s) => (
+                            <button key={s} onClick={() => scrollTo(s)} className="capitalize hover:text-[#d4b57c] transition-colors hidden sm:inline">
+                                {s}
+                            </button>
                         ))}
+                        <a href={RESUME_URL} target="_blank" rel="noreferrer" className="btn border gold-border gold px-3 py-1.5 rounded-sm hover:bg-[#c9a96e15]">
+                            Resume
+                        </a>
                     </div>
                 </div>
             </nav>
 
             {/* HERO */}
-            <section className="min-h-screen flex flex-col justify-center max-w-6xl mx-auto px-6 pt-24 relative">
-                <div className={`${visible ? "fade-in" : "opacity-0"}`}>
-                    <p className="dm-sans text-sm tracking-[0.2em] uppercase gold mb-6 delay-1 fade-in">
-                        Software Engineer · Full Stack, Backend &amp; AI
+            <section className="hero-glow min-h-screen flex flex-col justify-center max-w-6xl mx-auto px-5 md:px-6 pt-28 pb-16 relative">
+                <Reveal>
+                    <p className="dm-sans inline-flex items-center gap-2 text-xs md:text-sm text-[#cfcac2] border border-[#ffffff14] rounded-full px-3 py-1 mb-6">
+                        <span className="pulse inline-block w-2 h-2 rounded-full bg-green-400" />
+                        Open to full-time, contract &amp; freelance work
                     </p>
-                    <h1 className="playfair text-7xl font-bold leading-none mb-6 delay-2 fade-in" style={{ letterSpacing: '-0.02em' }}>
-                        Priyanka<br />
-                        <span style={{ WebkitTextStroke: '1px #c9a96e', color: 'transparent' }}>Kommani</span>
+                </Reveal>
+                <Reveal delay={80}>
+                    <p className="dm-sans text-xs md:text-sm tracking-[0.2em] uppercase gold mb-5">Software Engineer · Full Stack, Backend &amp; AI</p>
+                </Reveal>
+                <Reveal delay={160}>
+                    <h1 className="playfair text-5xl sm:text-6xl md:text-7xl font-bold leading-none mb-6" style={{ letterSpacing: "-0.02em" }}>
+                        Priyanka
+                        <br />
+                        <span style={{ WebkitTextStroke: "1px #c9a96e", color: "transparent" }}>Kommani</span>
                     </h1>
-                    <p className="dm-sans text-lg text-[#888] max-w-xl leading-relaxed mb-10 delay-3 fade-in">
-                        I build production software end to end — fintech apps with live broker trading and
-                        UPI Autopay, real-time voice AI, RAG pipelines, and full-stack platforms.<br />
-                        1.5+ years · Node.js · TypeScript · PostgreSQL · LLM Integrations
+                </Reveal>
+                <Reveal delay={240}>
+                    <p className="dm-sans text-base md:text-lg text-[#b5b0a8] max-w-xl leading-relaxed mb-10">
+                        I build production software end to end: fintech apps with live broker trading and UPI Autopay, real-time voice AI, RAG pipelines and
+                        full-stack platforms with Node.js, TypeScript and PostgreSQL.
                     </p>
-                    <div className="flex gap-4 mb-16 delay-4 fade-in">
-                        <span
-                            onClick={() => scrollTo("contact")}
-                            className="gold-bg text-[#0f0f0f] px-6 py-3 text-sm dm-sans font-medium tracking-wide hover:opacity-90 transition"
-                            style={{ borderRadius: '2px', cursor: 'pointer' }}>
-                            Get In Touch
-                        </span>
-                        <a href="https://github.com/priyankakommani" target="_blank" rel="noreferrer"
-                            className="border gold-border gold px-6 py-3 text-sm dm-sans font-medium tracking-wide hover:bg-[#c9a96e15] transition"
-                            style={{ borderRadius: '2px' }}>
-                            GitHub →
+                </Reveal>
+                <Reveal delay={320}>
+                    <div className="flex flex-wrap gap-3 md:gap-4 mb-14">
+                        <a href={RESUME_URL} target="_blank" rel="noreferrer" className="btn gold-bg text-[#0f0f0f] px-6 py-3 text-sm dm-sans font-medium tracking-wide rounded-sm hover:opacity-90">
+                            Download Resume ↓
+                        </a>
+                        <button onClick={() => scrollTo("projects")} className="btn border gold-border gold px-6 py-3 text-sm dm-sans font-medium tracking-wide rounded-sm hover:bg-[#c9a96e15]">
+                            View Projects →
+                        </button>
+                        <a href={GITHUB} target="_blank" rel="noreferrer" className="btn border border-[#ffffff20] text-[#cfcac2] px-6 py-3 text-sm dm-sans font-medium rounded-sm hover:border-[#c9a96e66]">
+                            GitHub
                         </a>
                     </div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-[#ffffff0f] delay-5 fade-in">
+                </Reveal>
+                <Reveal delay={400}>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 pt-8 border-t border-[#ffffff12]">
                         {stats.map((s) => (
                             <div key={s.label}>
-                                <p className="playfair stat-num text-3xl font-semibold gold mb-1">{s.value}</p>
-                                <p className="dm-sans text-xs text-[#777] leading-snug">{s.label}</p>
+                                <p className="playfair text-2xl md:text-3xl font-semibold gold mb-1" style={{ fontVariantNumeric: "tabular-nums" }}>
+                                    {s.value}
+                                </p>
+                                <p className="dm-sans text-xs text-[#a19c94] leading-snug">{s.label}</p>
                             </div>
                         ))}
                     </div>
-                </div>
-
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
-                    <span className="dm-sans text-xs tracking-widest uppercase text-[#888]">scroll</span>
-                    <div className="w-px h-10 bg-[#c9a96e]"></div>
-                </div>
+                </Reveal>
             </section>
 
-            <div className="divider mx-6"></div>
+            <div className="divider mx-6" />
 
             {/* ABOUT */}
-            <section id="about" className="max-w-6xl mx-auto px-6 py-24">
-                <div className="grid md:grid-cols-2 gap-16 items-start">
+            <section id="about" className="max-w-6xl mx-auto px-5 md:px-6 py-20 md:py-24">
+                <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
                     <div>
-                        <p className="dm-sans text-xs tracking-[0.2em] uppercase gold mb-4">About</p>
-                        <h2 className="playfair text-4xl font-semibold mb-8 leading-tight">Backends that scale.<br />AI that ships.</h2>
-                        <p className="dm-sans text-[#aaa] leading-relaxed mb-6">
-                            Software Engineer with 1.5+ years shipping production systems. At Growsin, a fintech
-                            startup, I build a live investment-research app on Google Play — in-app stock ordering
-                            through broker APIs (Zerodha, Upstox), Zoho Payments with UPI Autopay, and KYC onboarding.
-                            Before that I was the sole backend owner at Orotron, shipping REST APIs in Node.js and
-                            Hono.js and real-time AI infrastructure (LiveKit, Deepgram, Gemini) used by real users.
-                        </p>
-                        <p className="dm-sans text-[#aaa] leading-relaxed mb-8">
-                            Alongside that, I've taken on full-stack AI engineering work end to end: a RAG-powered
-                            learning platform with 55 routes and a 40+ controller backend built solo, and an LLM
-                            pipeline that generates complete full-stack applications from a single prompt. I care
-                            about AI features that ship as reliable, deployed products — not demos.
-                        </p>
-                        <div className="grid grid-cols-3 gap-4 pt-4 border-t border-[#ffffff0f]">
-                            {[["B.Tech CSE", "IIIT Srikakulam", "CGPA 9.0"], ["Experience", "1.5+ Years", "Production"], ["Location", "Visakhapatnam, AP", "India"]].map(([title, val, sub]) => (
-                                <div key={title}>
-                                    <p className="dm-sans text-xs text-[#555] uppercase tracking-widest mb-1">{title}</p>
-                                    <p className="dm-sans text-sm font-medium text-[#e8e4dc]">{val}</p>
-                                    <p className="dm-sans text-xs text-[#666]">{sub}</p>
-                                </div>
-                            ))}
-                        </div>
+                        <SectionHeading eyebrow="About" title="Backends that scale. AI that ships." />
+                        <Reveal>
+                            <p className="dm-sans text-[#b5b0a8] leading-relaxed mb-5">
+                                At <span className="text-[#ece8e0]">Growsin</span>, a fintech startup, I build a live investment-research app on Google Play: in-app
+                                stock ordering through broker APIs, Zoho Payments with UPI Autopay, and KYC onboarding.
+                            </p>
+                            <p className="dm-sans text-[#b5b0a8] leading-relaxed mb-5">
+                                Before that I was the sole backend owner at <span className="text-[#ece8e0]">Orotron</span>, shipping REST APIs and real-time AI
+                                infrastructure (LiveKit, Deepgram, Gemini) used by real users.
+                            </p>
+                            <p className="dm-sans text-[#b5b0a8] leading-relaxed mb-8">
+                                I care about software that keeps working in production: clear business rules, permissions checked on the server, and AI features
+                                that are reliable, not demos.
+                            </p>
+                        </Reveal>
+                        <Reveal>
+                            <div className="grid grid-cols-3 gap-4 pt-5 border-t border-[#ffffff12]">
+                                {[
+                                    ["Education", "B.Tech CSE", "IIIT Srikakulam · 9.0"],
+                                    ["Experience", "1.5+ years", "Production"],
+                                    ["Location", "Visakhapatnam", "Andhra Pradesh, India"],
+                                ].map(([title, val, sub]) => (
+                                    <div key={title}>
+                                        <p className="dm-sans text-[11px] text-[#8f8a82] uppercase tracking-widest mb-1">{title}</p>
+                                        <p className="dm-sans text-sm font-medium text-[#ece8e0]">{val}</p>
+                                        <p className="dm-sans text-xs text-[#a19c94]">{sub}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </Reveal>
                     </div>
 
                     <div>
-                        <p className="dm-sans text-xs tracking-[0.2em] uppercase gold mb-6">Tech Stack</p>
-                        <div className="flex flex-wrap gap-2">
-                            {skills.map((skill) => (
-                                <span key={skill.name}
-                                    className="skill-chip dm-sans text-xs px-3 py-1.5 rounded-sm border border-[#ffffff0f] text-[#aaa] bg-[#ffffff05] cursor-default">
-                                    {skill.name}
-                                </span>
+                        <Reveal>
+                            <p className="dm-sans text-xs tracking-[0.2em] uppercase gold mb-6 md:mt-2">Tech Stack</p>
+                        </Reveal>
+                        <div className="space-y-5">
+                            {skillGroups.map((g, i) => (
+                                <Reveal key={g.title} delay={i * 60}>
+                                    <p className="dm-sans text-[11px] uppercase tracking-widest text-[#8f8a82] mb-2">{g.title}</p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {g.items.map((s) => (
+                                            <span key={s} className="chip dm-sans text-xs px-3 py-1.5 rounded-sm border border-[#ffffff14] text-[#cfcac2] bg-[#ffffff06] cursor-default">
+                                                {s}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </Reveal>
                             ))}
                         </div>
                     </div>
                 </div>
             </section>
 
-            <div className="divider mx-6"></div>
+            <div className="divider mx-6" />
 
             {/* EXPERIENCE */}
-            <section id="experience" className="max-w-6xl mx-auto px-6 py-24">
-                <p className="dm-sans text-xs tracking-[0.2em] uppercase gold mb-4">Experience</p>
-                <h2 className="playfair text-4xl font-semibold mb-14">Where I've worked.</h2>
-
-                <div className="relative pl-6 border-l border-[#ffffff0f]">
-                    {[
-                        {
-                            role: "MERN Stack Developer",
-                            company: "Growsin Private Limited · Fintech",
-                            period: "Sep 2026 – Present",
-                            points: [
-                                "Build the Growsin investment-research product end to end: Hono.js + PostgreSQL (Drizzle ORM) backend, Next.js landing pages and features in the mobile app; shipped 9 releases to Google Play.",
-                                "Integrated stock-order execution with 7 broker APIs behind one broker layer; Zerodha Kite Connect basket orders and Upstox run live in production.",
-                                "Built subscription billing on Zoho Payments with opt-in UPI Autopay and webhook-driven access grants.",
-                                "Built KYC onboarding with CVL KRA PAN verification and automatic fallback to Digio Aadhaar eSign during upstream outages, released behind feature flags.",
-                            ]
-                        },
-                        {
-                            role: "Software Engineer",
-                            company: "Orotron",
-                            period: "Nov 2024 – Mar 2026",
-                            points: [
-                                "Sole backend owner; designed and shipped production REST APIs (Node.js, Hono.js) powering all core product features.",
-                                "Modelled multi-table PostgreSQL schemas with Drizzle ORM and optimised critical queries on business-critical flows.",
-                                "Built end-to-end integrations with AWS S3, LiveKit, VideoSDK, and Deepgram, supporting concurrent live AI sessions.",
-                                "Owned backend delivery from schema design to production deployment on tight startup timelines, coordinating directly with frontend and product to ship releases.",
-                            ]
-                        },
-                    ].map((exp, i) => (
-                        <div key={i} className="mb-12 relative">
-                            <div className="absolute -left-[29px] top-1.5 w-3 h-3 rounded-full gold-bg border-2 border-[#0f0f0f]"></div>
-                            <div className="flex flex-wrap justify-between items-start mb-3">
+            <section id="experience" className="max-w-6xl mx-auto px-5 md:px-6 py-20 md:py-24">
+                <SectionHeading eyebrow="Experience" title="Where I've worked." />
+                <div className="relative pl-6 border-l border-[#ffffff14]">
+                    {experience.map((exp) => (
+                        <Reveal key={exp.company} className="mb-12 last:mb-0 relative">
+                            <div className="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full gold-bg border-2 border-[#0f0f0f]" />
+                            <div className="flex flex-wrap justify-between items-start gap-2 mb-3">
                                 <div>
                                     <h3 className="playfair text-xl font-semibold">{exp.role}</h3>
                                     <p className="dm-sans text-sm gold">{exp.company}</p>
                                 </div>
-                                <span className="dm-sans text-xs text-[#555] tracking-widest uppercase mt-1">{exp.period}</span>
+                                <span className="dm-sans text-xs text-[#a19c94] tracking-widest uppercase mt-1">{exp.period}</span>
                             </div>
                             <ul className="space-y-2">
-                                {exp.points.map((p, j) => (
-                                    <li key={j} className="dm-sans text-sm text-[#888] flex gap-3">
-                                        <span className="gold mt-1 shrink-0">—</span>
+                                {exp.points.map((p) => (
+                                    <li key={p} className="dm-sans text-sm text-[#b5b0a8] leading-relaxed flex gap-3">
+                                        <span className="gold mt-0.5 shrink-0">—</span>
                                         <span>{p}</span>
                                     </li>
                                 ))}
                             </ul>
-                        </div>
+                        </Reveal>
                     ))}
                 </div>
             </section>
 
-            <div className="divider mx-6"></div>
+            <div className="divider mx-6" />
 
             {/* PROJECTS */}
-            <section id="projects" className="max-w-6xl mx-auto px-6 py-24">
-                <p className="dm-sans text-xs tracking-[0.2em] uppercase gold mb-4">Projects</p>
-                <h2 className="playfair text-4xl font-semibold mb-14">Things I've built.</h2>
-
+            <section id="projects" className="max-w-6xl mx-auto px-5 md:px-6 py-20 md:py-24">
+                <SectionHeading eyebrow="Projects" title="Things I've built." />
                 <div className="grid md:grid-cols-2 gap-6">
-                    {projects.map((project, i) => (
-                        <div key={i}
-                            className={`card-hover bg-[#161616] border p-7 ${i === 0 ? "md:col-span-2 border-[#c9a96e33]" : "border-[#ffffff08]"}`}
-                            style={{ borderRadius: '4px' }}>
-                            <div className="flex justify-between items-start mb-4">
-                                <span className="tag-pill dm-sans text-[#555] tracking-widest">{project.tag}</span>
-                                {project.badge && (
-                                    <span className="featured-badge dm-sans px-2.5 py-1 border border-[#c9a96e33] gold" style={{ borderRadius: '2px' }}>
-                                        {project.badge}
-                                    </span>
-                                )}
-                            </div>
-                            <h3 className="playfair text-xl font-semibold mb-1">{project.title}</h3>
-                            {project.note && (
-                                <p className="dm-sans text-xs text-[#666] italic mb-3">{project.note}</p>
-                            )}
-                            <p className="dm-sans text-sm text-[#777] leading-relaxed mb-5">{project.desc}</p>
-                            <div className="flex flex-wrap gap-2 pt-4 border-t border-[#ffffff06]">
-                                {project.stack.map((s) => (
-                                    <span key={s} className="dm-sans text-xs text-[#555] bg-[#ffffff04] border border-[#ffffff08] px-2.5 py-1" style={{ borderRadius: '2px' }}>
-                                        {s}
-                                    </span>
-                                ))}
-                            </div>
-                            {(project.live || project.github) && (
-                                <div className="flex gap-5 mt-4">
-                                    {project.live && (
-                                        <a href={project.live} target="_blank" rel="noreferrer"
-                                            className="dm-sans text-xs gold inline-block hover:opacity-80 transition">
-                                            Live Demo →
-                                        </a>
-                                    )}
-                                    {project.github && (
-                                        <a href={project.github} target="_blank" rel="noreferrer"
-                                            className="dm-sans text-xs gold inline-block hover:opacity-80 transition">
-                                            View on GitHub →
-                                        </a>
+                    {projects.map((p, i) => (
+                        <Reveal key={p.title} delay={(i % 2) * 80} className={p.featured ? "md:col-span-2" : ""}>
+                            <article
+                                className={`card h-full flex flex-col bg-[#161616] border p-6 md:p-7 rounded ${p.featured ? "border-[#c9a96e40]" : "border-[#ffffff10]"}`}>
+                                <div className="flex justify-between items-start gap-3 mb-4">
+                                    <span className="dm-sans text-[11px] uppercase tracking-widest text-[#a19c94]">{p.tag}</span>
+                                    {p.featured && (
+                                        <span className="dm-sans text-[10px] uppercase tracking-[0.12em] px-2.5 py-1 border border-[#c9a96e44] gold rounded-sm shrink-0">
+                                            Featured
+                                        </span>
                                     )}
                                 </div>
-                            )}
-                        </div>
+                                <h3 className="playfair text-xl font-semibold mb-2">{p.title}</h3>
+                                <p className="dm-sans text-sm text-[#cfcac2] leading-relaxed mb-4">{p.summary}</p>
+                                <ul className={`space-y-1.5 mb-5 ${p.featured ? "md:grid md:grid-cols-3 md:gap-6 md:space-y-0" : ""}`}>
+                                    {p.highlights.map((h) => (
+                                        <li key={h} className="dm-sans text-[13px] text-[#a19c94] leading-relaxed flex gap-2.5">
+                                            <span className="gold shrink-0">›</span>
+                                            <span>{h}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                                <div className="mt-auto">
+                                    <div className="flex flex-wrap gap-2 pt-4 border-t border-[#ffffff0c]">
+                                        {p.stack.map((s) => (
+                                            <span key={s} className="dm-sans text-xs text-[#a19c94] bg-[#ffffff06] border border-[#ffffff10] px-2.5 py-1 rounded-sm">
+                                                {s}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <div className="flex flex-wrap items-center gap-5 mt-4 dm-sans text-xs">
+                                        {p.live && (
+                                            <a href={p.live} target="_blank" rel="noreferrer" className="link-u gold">
+                                                Live Demo →
+                                            </a>
+                                        )}
+                                        {p.github && (
+                                            <a href={p.github} target="_blank" rel="noreferrer" className="link-u gold">
+                                                View Code →
+                                            </a>
+                                        )}
+                                        {p.privateNote && <span className="text-[#8f8a82] italic">{p.privateNote}</span>}
+                                    </div>
+                                </div>
+                            </article>
+                        </Reveal>
                     ))}
                 </div>
+                <Reveal>
+                    <p className="dm-sans text-sm text-[#a19c94] mt-10 text-center">
+                        More on{" "}
+                        <a href={GITHUB} target="_blank" rel="noreferrer" className="link-u gold">
+                            GitHub →
+                        </a>
+                    </p>
+                </Reveal>
             </section>
 
-            <div className="divider mx-6"></div>
+            <div className="divider mx-6" />
 
             {/* CONTACT */}
-            <section id="contact" className="max-w-6xl mx-auto px-6 py-24 text-center">
-                <p className="dm-sans text-xs tracking-[0.2em] uppercase gold mb-4">Contact</p>
-                <h2 className="playfair text-5xl font-semibold mb-6">Let's connect.</h2>
-                <p className="dm-sans text-[#666] mb-12 max-w-md mx-auto">
-                    Open to backend, full-stack, and AI/ML engineering roles. Feel free to reach out.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-                    <a href="mailto:priyankakommani@gmail.com"
-                        className="gold-bg text-[#0f0f0f] px-8 py-3.5 text-sm dm-sans font-medium tracking-wide hover:opacity-90 transition"
-                        style={{ borderRadius: '2px' }}>
-                        priyankakommani@gmail.com
-                    </a>
-                    <a href="https://github.com/priyankakommani" target="_blank" rel="noreferrer"
-                        className="border gold-border gold px-8 py-3.5 text-sm dm-sans font-medium hover:bg-[#c9a96e10] transition"
-                        style={{ borderRadius: '2px' }}>
-                        GitHub
-                    </a>
-                    <a href="https://www.linkedin.com/in/priyanka-kommani-668315244" target="_blank" rel="noreferrer"
-                        className="border border-[#ffffff15] text-[#888] px-8 py-3.5 text-sm dm-sans font-medium hover:border-[#c9a96e44] hover:text-[#c9a96e] transition"
-                        style={{ borderRadius: '2px' }}>
-                        LinkedIn
-                    </a>
-                </div>
-                <p className="dm-sans text-xs text-[#333] tracking-widest uppercase">
-                    Priyanka Kommani · Visakhapatnam, AP · 8374412944
-                </p>
+            <section id="contact" className="max-w-6xl mx-auto px-5 md:px-6 py-20 md:py-24 text-center">
+                <Reveal>
+                    <p className="dm-sans text-xs tracking-[0.2em] uppercase gold mb-4">Contact</p>
+                    <h2 className="playfair text-4xl md:text-5xl font-semibold mb-6">Let's build something.</h2>
+                    <p className="dm-sans text-[#b5b0a8] mb-10 max-w-md mx-auto leading-relaxed">
+                        Open to backend, full-stack and AI engineering roles: full-time, contract or freelance.
+                    </p>
+                </Reveal>
+                <Reveal delay={100}>
+                    <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 justify-center mb-14">
+                        <a href={`mailto:${EMAIL}`} className="btn gold-bg text-[#0f0f0f] px-7 py-3.5 text-sm dm-sans font-medium tracking-wide rounded-sm hover:opacity-90">
+                            {EMAIL}
+                        </a>
+                        <a href={LINKEDIN} target="_blank" rel="noreferrer" className="btn border gold-border gold px-7 py-3.5 text-sm dm-sans font-medium rounded-sm hover:bg-[#c9a96e10]">
+                            LinkedIn
+                        </a>
+                        <a href={GITHUB} target="_blank" rel="noreferrer" className="btn border border-[#ffffff20] text-[#cfcac2] px-7 py-3.5 text-sm dm-sans font-medium rounded-sm hover:border-[#c9a96e66]">
+                            GitHub
+                        </a>
+                        <a href={RESUME_URL} target="_blank" rel="noreferrer" className="btn border border-[#ffffff20] text-[#cfcac2] px-7 py-3.5 text-sm dm-sans font-medium rounded-sm hover:border-[#c9a96e66]">
+                            Resume ↓
+                        </a>
+                    </div>
+                </Reveal>
+                <p className="dm-sans text-xs text-[#8f8a82] tracking-widest uppercase">Priyanka Kommani · Visakhapatnam, India · © {new Date().getFullYear()}</p>
             </section>
         </div>
     );
